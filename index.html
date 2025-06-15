@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZeeCoder - Learn Programming for Free</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Welcome Screen Styles */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.5s ease;
+        }
+
+        .welcome-container {
+            text-align: center;
+            color: white;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .welcome-animation {
+            margin-bottom: 30px;
+        }
+
+        .code-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-30px);}
+            60% {transform: translateY(-15px);}
+        }
+
+        .logo {
+            font-weight: 700;
+            color: #ffcc00;
+        }
+
+        .welcome-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .welcome-container p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        #nameForm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #nameInput {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            text-align: center;
+            outline: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            min-height: 20px;
+        }
+
+        .welcome-container button {
+            padding: 12px 30px;
+            background: white;
+            color: #6e8efb;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-container button:hover {
+            background: #ffcc00;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            display: none;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #6e8efb;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #6e8efb;
+        }
+
+        .hero {
+            background: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #6e8efb;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #a777e3;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Free Courses Section */
+        .free-courses {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .free-courses h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .free-courses h2 i {
+            margin-right: 10px;
+            color: #6e8efb;
+        }
+
+        .course-category {
+            margin-bottom: 60px;
+        }
+
+        .course-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #444;
+            display: flex;
+            align-items: center;
+        }
+
+        .course-category h3 i {
+            margin-right: 10px;
+            color: #a777e3;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .video-grid iframe {
+            width: 100%;
+            height: 315px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-links {
+            background: #f5f7fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .video-links h4 {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .video-links ul {
+            list-style: none;
+        }
+
+        .video-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .video-links ul li a {
+            color: #6e8efb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .video-links ul li a:hover {
+            color: #a777e3;
+            text-decoration: underline;
+        }
+
+        /* Paid Courses Section */
+        .paid-courses {
+            padding: 80px 0;
+            background: #f5f7fa;
+        }
+
+        .paid-courses h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .paid-courses h2 i {
+            margin-right: 10px;
+            color: #ffcc00;
+        }
+
+        .paid-courses p {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #666;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pricing-card h3 i {
+            margin-right: 10px;
+            color: #a777e3;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #6e8efb;
+            margin-bottom: 20px;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .pricing-card ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .pricing-card ul li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #6e8efb;
+        }
+
+        .enroll-btn {
+            padding: 12px 30px;
+            background: #6e8efb;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .enroll-btn:hover {
+            background: #a777e3;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .about h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .about h2 i {
+            margin-right: 10px;
+            color: #6e8efb;
+        }
+
+        .about p {
+            max-width: 800px;
+            margin: 0 auto 20px;
+            text-align: center;
+            color: #666;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background: #f5f7fa;
+        }
+
+        .contact h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .contact h2 i {
+            margin-right: 10px;
+            color: #6e8efb;
+        }
+
+        #contactForm {
+            max-width: 600px;
+            margin: 0 auto;
+            display: grid;
+            gap: 20px;
+        }
+
+        #contactForm input,
+        #contactForm textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #contactForm textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        #contactForm button {
+            padding: 15px 30px;
+            background: #6e8efb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #contactForm button:hover {
+            background: #a777e3;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: #666;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #6e8efb;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        /* WhatsApp Contact Style */
+        .whatsapp-contact {
+            margin-top: 15px;
+            font-size: 1.1rem;
+        }
+        .whatsapp-contact a {
+            color: #25D366;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .whatsapp-contact a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav .container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-container h1 {
+                font-size: 2rem;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .hero {
+                height: 300px;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-container">
+            <div class="welcome-animation">
+                <div class="code-icon"><i class="fas fa-code"></i></div>
+                <h1>Welcome to <span class="logo">ZeeCoder</span></h1>
+                <p>Your gateway to programming knowledge</p>
+            </div>
+            <form id="nameForm">
+                <input type="text" id="nameInput" placeholder="What's your name?" required>
+                <p class="error-message" id="errorMessage"></p>
+                <button type="submit">Let's Learn!</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content (hidden initially) -->
+    <div class="main-content" id="mainContent">
+        <header>
+            <div class="container">
+                <h1 id="greeting">Hello, <span id="userName">User</span>!</h1>
+                <p>Ready to start your coding journey?</p>
+            </div>
+        </header>
+
+        <nav>
+            <div class="container">
+                <div class="logo">ZeeCoder</div>
+                <ul>
+                    <li><a href="#free-courses">Free Courses</a></li>
+                    <li><a href="#paid-courses">Paid Courses</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div class="container">
+                <h2>Learn to Code Like a Pro</h2>
+                <p>Master programming with our free and premium courses</p>
+                <a href="#free-courses" class="btn">Start Learning Now</a>
+            </div>
+        </section>
+
+        <section id="free-courses" class="free-courses">
+            <div class="container">
+                <h2><i class="fas fa-graduation-cap"></i> ✨ Free Courses by CodeWithHarry ✨</h2>
+                
+                <div class="course-category">
+                    <h3><i class="fab fa-python"></i> Python Programming</h3>
+                    <div class="video-grid">
+                        <iframe src="https://www.youtube.com/embed/videoseries?list=PLu0W_9lII9agwh1XjRt242xIpHhPT2llg" frameborder="0" allowfullscreen></iframe>
+                        <div class="video-links">
+                            <h4>10+ Python Tutorial Videos:</h4>
+                            <ul>
+                                <li><a href="https://youtu.be/gfDE2a7MKjA" target="_blank">Python Introduction</a></li>
+                                <li><a href="https://youtu.be/6iF8Xb7Z3wQ" target="_blank">Python Setup & First Program</a></li>
+                                <li><a href="https://youtu.be/09dJOZbQ3yM" target="_blank">Python Variables & Data Types</a></li>
+                                <li><a href="https://youtu.be/09dJOZbQ3yM" target="_blank">Python Operators</a></li>
+                                <li><a href="https://youtu.be/0s9IimL0a3E" target="_blank">Python Strings</a></li>
+                                <li><a href="https://youtu.be/0s9IimL0a3E" target="_blank">Python Lists & Tuples</a></li>
+                                <li><a href="https://youtu.be/0s9IimL0a3E" target="_blank">Python Dictionaries</a></li>
+                                <li><a href="https://youtu.be/0s9IimL0a3E" target="_blank">Python Conditionals</a></li>
+                                <li><a href="https://youtu.be/0s9IimL0a3E" target="_blank">Python Loops</a></li>
+                                <li><a href="https://youtu.be/0s9IimL0a3E" target="_blank">Python Functions</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-category">
+                    <h3><i class="fas fa-globe"></i> Web Development</h3>
+                    <div class="video-grid">
+                        <iframe src="https://www.youtube.com/embed/videoseries?list=PLu0W_9lII9agiCUZYRsvtGTXdxkzPyItg" frameborder="0" allowfullscreen></iframe>
+                        <div class="video-links">
+                            <h4>Web Development Series:</h4>
+                            <ul>
+                                <li><a href="https://youtu.be/BsDoLVMnmZs" target="_blank">HTML Crash Course</a></li>
+                                <li><a href="https://youtu.be/Edsxf_NBFrw" target="_blank">CSS Tutorial</a></li>
+                                <li><a href="https://youtu.be/hKB-YGF14SY" target="_blank">JavaScript Basics</a></li>
+                                <li><a href="https://youtu.be/6mbwJ2xhgzM" target="_blank">DOM Manipulation</a></li>
+                                <li><a href="https://youtu.be/6mbwJ2xhgzM" target="_blank">React Introduction</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-category">
+                    <h3><i class="fas fa-copyright"></i> C++ Programming</h3>
+                    <div class="video-grid">
+                        <iframe src="https://www.youtube.com/embed/videoseries?list=PLu0W_9lII9agpFUAlPFe_VNSlXW5uE0YL" frameborder="0" allowfullscreen></iframe>
+                        <div class="video-links">
+                            <h4>C++ Tutorial Videos:</h4>
+                            <ul>
+                                <li><a href="https://youtu.be/yGB9jhsEsr8" target="_blank">C++ Introduction</a></li>
+                                <li><a href="https://youtu.be/yGB9jhsEsr8" target="_blank">C++ Setup & First Program</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-category">
+                    <h3><i class="fab fa-java"></i> Java Programming</h3>
+                    <div class="video-grid">
+                        <iframe src="https://www.youtube.com/embed/videoseries?list=PLu0W_9lII9agS67Uits0UnJyrYiXhDS6q" frameborder="0" allowfullscreen></iframe>
+                        <div class="video-links">
+                            <h4>Java Tutorial Videos:</h4>
+                            <ul>
+                                <li><a href="https://youtu.be/ntLJmHOJ0ME" target="_blank">Java Introduction</a></li>
+                                <li><a href="https://youtu.be/ntLJmHOJ0ME" target="_blank">Java Setup & First Program</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="paid-courses" class="paid-courses">
+            <div class="container">
+                <h2><i class="fas fa-star"></i> Premium Courses</h2>
+                <p>Upgrade your skills with our in-depth paid courses</p>
+                
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3><i class="fab fa-python"></i> Python Mastery</h3>
+                        <div class="price">₹20,000</div>
+                        <ul>
+                            <li>40+ hours of content</li>
+                            <li>10 real-world projects</li>
+                            <li>Certificate of completion</li>
+                            <li>1:1 mentorship</li>
+                        </ul>
+                        <button class="enroll-btn">Enroll Now</button>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3><i class="fas fa-copyright"></i> C++ Mastery</h3>
+                        <div class="price">₹20,000</div>
+                        <ul>
+                            <li>35+ hours of content</li>
+                            <li>8 real-world projects</li>
+                            <li>Certificate of completion</li>
+                            <li>1:1 mentorship</li>
+                        </ul>
+                        <button class="enroll-btn">Enroll Now</button>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3><i class="fab fa-java"></i> Java Mastery</h3>
+                        <div class="price">₹20,000</div>
+                        <ul>
+                            <li>38+ hours of content</li>
+                            <li>9 real-world projects</li>
+                            <li>Certificate of completion</li>
+                            <li>1:1 mentorship</li>
+                        </ul>
+                        <button class="enroll-btn">Enroll Now</button>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3><i class="fas fa-globe"></i> Web Development Mastery</h3>
+                        <div class="price">₹20,000</div>
+                        <ul>
+                            <li>45+ hours of content</li>
+                            <li>12 real-world projects</li>
+                            <li>Certificate of completion</li>
+                            <li>1:1 mentorship</li>
+                        </ul>
+                        <button class="enroll-btn">Enroll Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2><i class="fas fa-info-circle"></i> About ZeeCoder</h2>
+                <p>ZeeCoder is a platform dedicated to providing high-quality programming education to students and professionals. We partner with top educators like CodeWithHarry to bring you the best learning resources.</p>
+                <p>Our mission is to make coding education accessible to everyone, regardless of their background or financial situation.</p>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2><i class="fas fa-envelope"></i> Contact Us</h2>
+                <form id="contactForm">
+                    <input type="text" id="contactName" placeholder="Your Name" required>
+                    <input type="email" id="contactEmail" placeholder="Your Email" required>
+                    <textarea id="contactMessage" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2023 ZeeCoder. All rights reserved.</p>
+                <p class="whatsapp-contact">
+                    <i class="fab fa-whatsapp"></i> Contact me on WhatsApp: 
+                    <a href="https://wa.me/923492457780" target="_blank">0349 2457780</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Welcome Screen Functionality
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            const mainContent = document.getElementById('mainContent');
+            const nameForm = document.getElementById('nameForm');
+            const nameInput = document.getElementById('nameInput');
+            const errorMessage = document.getElementById('errorMessage');
+            const userName = document.getElementById('userName');
+            
+            // Check if name is already stored
+            const storedName = localStorage.getItem('zeeCoderUserName');
+            if (storedName) {
+                welcomeScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+                userName.textContent = storedName;
+            }
+            
+            // Name validation and submission
+            nameForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = nameInput.value.trim();
+                
+                // Validate name (only letters, no numbers or special characters)
+                if (!/^[a-zA-Z]+$/.test(name)) {
+                    errorMessage.textContent = 'Please enter only alphabetic characters (no numbers or symbols)';
+                    return;
+                }
+                
+                // Store name and proceed
+                localStorage.setItem('zeeCoderUserName', name);
+                welcomeScreen.style.opacity = '0';
+                
+                setTimeout(function() {
+                    welcomeScreen.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    userName.textContent = name;
+                    
+                    // Add greeting animation
+                    const greeting = document.querySelector('#greeting');
+                    greeting.style.opacity = '0';
+                    greeting.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(function() {
+                        greeting.style.transition = 'all 0.5s ease';
+                        greeting.style.opacity = '1';
+                        greeting.style.transform = 'translateY(0)';
+                    }, 100);
+                }, 500);
+            });
+            
+            // Contact form submission with WhatsApp integration
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('contactName').value.trim();
+                    const email = document.getElementById('contactEmail').value.trim();
+                    const message = document.getElementById('contactMessage').value.trim();
+                    
+                    if (!name || !email || !message) {
+                        alert('Please fill all fields');
+                        return;
+                    }
+                    
+                    const whatsappMessage = `New message from ZeeCoder:%0A%0A` +
+                                          `Name: ${name}%0A` +
+                                          `Email: ${email}%0A` +
+                                          `Message: ${message}`;
+                    
+                    window.open(`https://wa.me/923492457780?text=${whatsappMessage}`, '_blank');
+                    contactForm.reset();
+                });
+            }
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Enroll button functionality
+            document.querySelectorAll('.enroll-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const courseName = this.parentElement.querySelector('h3').textContent;
+                    alert(`Thank you for your interest in our ${courseName} course! Our team will contact you shortly with enrollment details.`);
+                });
+            });
+            
+            // Animation on scroll
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.course-category, .pricing-card, #contactForm');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // Set initial state for animated elements
+            document.querySelectorAll('.course-category, .pricing-card, #contactForm').forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'all 0.5s ease';
+            });
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on page load
+        });
+    </script>
+</body>
+</html>
